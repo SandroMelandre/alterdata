@@ -1,0 +1,119 @@
+
+
+      <!-- Page Content -->
+      <div class="container shop-cart-container" ng-controller="ShopCartController">
+
+            <div class="row">
+                    <div class="card-body" ng-repeat="cart in listarCart">
+                        
+                            <!-- PRODUCT -->
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-2 text-center">
+                                        <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
+                                </div>
+                                <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                                    <h4 class="product-name"><strong>{{ cart.nome }}</strong></h4>
+                                    <h4>
+                                        <small>{{ cart.description }}</small>
+                                    </h4>
+                                </div>
+                                <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                                    <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                        <h6><strong>{{ cart.price.toFixed(2) }} <span class="text-muted">x</span></strong></h6>
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4">
+                                        <div class="quantity">
+                                            <!-- <input type="button" value="+" class="plus"> -->
+                                            <input type="number" step="1" max="{{cart.quantity}}" min="1" value="1" title="Qty" class="qty"
+                                                   size="4">
+                                            <!-- <input type="button" value="-" class="minus"> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-sm-2 col-md-2 text-right">
+                                        <button name="{{ cart.id }}"  type="button" ng-click="removeItemCart(cart)" class="btn btn-outline-danger btn-xs">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- END PRODUCT -->
+                            
+                        <div class="pull-right">
+                            <a href="" class="btn btn-outline-secondary pull-right">
+                                Update shopping cart
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 card-footer">
+                        <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="cupone code">
+                                </div>
+                                <div class="col-6">
+                                    <input type="submit" class="btn btn-default" value="Use cupone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin: 10px">
+                            <button ng-click="checkout()"  class="btn btn-success pull-right" data-toggle="modal" data-target="#checkout">Checkout</button>
+                            <div class="pull-right" style="margin: 5px">
+                                Total price: <b>{{ totalCart().toFixed(2) }}</b>
+                            </div>
+                        </div>
+
+                        <!-- Modal pequeno -->
+
+
+<div id="checkout" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        
+        <div class="modal-header">
+            <h5 class="modal-title">Checkout</h5>
+        </div>
+        <div class="modal-body" ng-show="!AuthUser">
+            <div ng-show="!AuthUser" class="modal-body">
+                Para finalizar é necessário realizar o login!
+            </div>
+       
+            <div class="modal-footer">
+                    <button ng-click="goLogin()" type="button" class="btn btn-secondary" data-dismiss="modal">logar</button>
+            </div>
+        </div>
+
+        <div class="modal-body" ng-show="AuthUser">
+                <div ng-show="AuthUser" class="modal-body">
+                    Obrigado pela sua compra !
+                </div>
+           
+                <div class="modal-footer">
+                        <button ng-click="sair()" type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                </div>
+            </div>
+
+    </div>
+  </div>
+</div>
+            
+        
+                </div>
+                <!-- /.row -->
+        
+              </div>
+              <!-- /.col-lg-9 -->
+        
+            </div>
+            <!-- /.row -->
+        
+          </div>
+          <!-- /.container -->
+         <script>
+           
+         if( localStorage.length === 0){
+            setTimeout(function() {
+                window.location.href = "/";
+            }, 1000);
+        }
+        </script>
